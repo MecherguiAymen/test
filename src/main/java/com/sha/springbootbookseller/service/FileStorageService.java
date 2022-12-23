@@ -24,6 +24,7 @@ public class FileStorageService implements IFileService {
 	    FileDb FileDB = new FileDb(fileName, file.getContentType(), file.getBytes());
 
 	    return fileDBRepository.save(FileDB);
+	    
 	  }
 
 
