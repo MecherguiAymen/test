@@ -4,6 +4,9 @@ import com.sha.springbootbookseller.model.FileDb;
 import com.sha.springbootbookseller.model.Role;
 import com.sha.springbootbookseller.model.User;
 import com.sha.springbootbookseller.repository.IUserRepository;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,19 +28,30 @@ public class UserService implements IUserService
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    Logger logger = LoggerFactory.getLogger(UserService.class);
+
 
     @Override
     public User saveUser(User user,MultipartFile file) throws IOException
     {
+    	logger.info("save user with file if exist");
     	if(!Objects.isNull(file)) {
-    		 String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    		logger.debug("extract file name from MultipartFile object");
+    		    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    		logger.debug("file name is ",fileName);
+    		logger.debug("create FileDb object");
     	 	    FileDb FileDB = new FileDb(fileName, file.getContentType(), file.getBytes());
+    	 	logger.debug("filedb is ", FileDB);
+    	 	logger.debug("set FileDb in User object");
     	 	    user.setFiledb(FileDB);
+    	    logger.info("user with picture saved successfully");
+
     	}
         try {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			//logger.error("cannot set password to user");
 			e.printStackTrace();
 		}
         user.setRole(Role.USER);

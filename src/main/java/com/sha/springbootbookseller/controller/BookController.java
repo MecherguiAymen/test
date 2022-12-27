@@ -1,6 +1,6 @@
 package com.sha.springbootbookseller.controller;
 
-import com.sha.springbootbookseller.model.Book;
+import com.sha.springbootbookseller.model.Annance;
 import com.sha.springbootbookseller.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class BookController
     private IBookService bookService;
 
     @PostMapping //api/book
-    public ResponseEntity<?> saveBook(@RequestBody Book book)
+    public ResponseEntity<?> saveBook(@RequestBody Annance book)
     {
         return new ResponseEntity<>(bookService.saveBook(book), HttpStatus.CREATED);
     }

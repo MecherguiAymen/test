@@ -1,6 +1,6 @@
 package com.sha.springbootbookseller.service;
 
-import com.sha.springbootbookseller.model.Book;
+import com.sha.springbootbookseller.model.Annance;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface IBookService
 {
-    Book saveBook(Book book);
+    Annance saveBook(Annance book);
 
     void deleteBook(Long id);
 
-    List<Book> findAllBooks();
+    List<Annance> findAllBooks();
 }

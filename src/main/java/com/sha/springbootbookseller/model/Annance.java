@@ -3,6 +3,8 @@ package com.sha.springbootbookseller.model;
 import lombok.Data;
 
 import javax.persistence.*;
+
+
 import java.time.LocalDateTime;
 
 /**
@@ -12,8 +14,8 @@ import java.time.LocalDateTime;
  */
 @Data
 @Entity
-@Table(name = "books")
-public class Book
+@Table(name = "Annance")
+public class Annance
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +32,22 @@ public class Book
 
     @Column(name = "price", nullable = false)
     private Double price;
-
+    
+    @Enumerated(EnumType.STRING)
+	private Category category;
+    
     @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
+    
+    @OneToOne(optional = false)
+	@JoinColumn(
+			name = "user_id",
+			referencedColumnName = "id")
+    private User user;
+    
+    
 }

@@ -1,6 +1,6 @@
 package com.sha.springbootbookseller.service;
 
-import com.sha.springbootbookseller.model.Book;
+import com.sha.springbootbookseller.model.Annance;
 import com.sha.springbootbookseller.repository.IBookRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class BookService implements IBookService
     }
 
     @Override
-    public Book saveBook(Book book)
+    public Annance saveBook(Annance book)
     {
         book.setCreateTime(LocalDateTime.now());
         return bookRepository.save(book);
@@ -36,7 +36,7 @@ public class BookService implements IBookService
     }
 
     @Override
-    public List<Book> findAllBooks()
+    public List<Annance> findAllBooks()
     {
         return bookRepository.findAll();
     }

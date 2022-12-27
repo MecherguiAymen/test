@@ -17,7 +17,7 @@ public interface IPurchaseHistoryRepository extends JpaRepository<PurchaseHistor
 {
     @Query("select " +
             "b.title as title, ph.price as price, ph.purchaseTime as purchaseTime  " +
-            "from PurchaseHistory ph left join Book b on b.id = ph.bookId " +
+            "from PurchaseHistory ph left join Annance b on b.id = ph.bookId " +
             "where ph.userId = :userId")
     List<IPurchaseItem> findAllPurchasesOfUser(@Param("userId") Long userId);
 }
