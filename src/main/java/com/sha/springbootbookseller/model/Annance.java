@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author sa
@@ -36,16 +37,16 @@ public class Annance
     @Enumerated(EnumType.STRING)
 	private Category category;
     
+    @Column(name = "isExpired", nullable = false)
+    private String isExpired;
+    
     @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
     
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private Role role;
     
-    @OneToOne(optional = false)
-	@JoinColumn(
-			name = "user_id",
+    @ManyToOne()
+    @JoinColumn(
+			name = "User_id",
 			referencedColumnName = "id")
     private User user;
     
