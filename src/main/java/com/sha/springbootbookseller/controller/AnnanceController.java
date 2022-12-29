@@ -33,14 +33,14 @@ public class AnnanceController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("{role}")
-    public ResponseEntity<?> getAllAnnanceForAdmin(@PathVariable Role role)
+    @GetMapping("/annance/admin")
+    public ResponseEntity<?> getAllAnnanceForAdmin()
     {
-        return new ResponseEntity<>(annanceService.findAllAnnanceByAdmin(role), HttpStatus.OK);
+        return new ResponseEntity<>(annanceService.findAllAnnanceByAdmin(), HttpStatus.OK);
     }
-    @GetMapping("{role}/{userId}")
-    public ResponseEntity<?> getAllAnnanceForAdmin(@PathVariable Role role,@PathVariable Long userId)
+    @GetMapping("annance/user/{userId}")
+    public ResponseEntity<?> getAllAnnanceForAdmin(@PathVariable Long userId)
     {
-        return new ResponseEntity<>(annanceService.findAllAnnanceByUserAndId(role,userId), HttpStatus.OK);
+        return new ResponseEntity<>(annanceService.findAllAnnanceByUserAndId(userId), HttpStatus.OK);
     }
 }

@@ -8,7 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author sa
@@ -22,7 +24,7 @@ public class AnnanceService implements IAnnanceService
     
     Logger logger = LoggerFactory.getLogger(UserService.class);
     
-    private final int DAYS=30;
+    private final int DAYS=1;
     final LocalDateTime currentDate = LocalDateTime.now();
 
 
@@ -49,21 +51,21 @@ public class AnnanceService implements IAnnanceService
     }
 
     @Override
-    public List<Annance> findAllAnnanceByAdmin(Role role)
+    public List<Annance> findAllAnnanceByAdmin()
     {
     	
-    	/*String str = "2022-12-31T13:42:11";
+    	String str = "2022-12-31T13:42:11";
     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-    	LocalDateTime dateTime = LocalDateTime.parse(str, formatter);*/
+    	LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
     	
-        logger.info("curent time is"+currentDate);
-    	List<Annance> list= annanceRepository.findAll();
-    	list.stream().filter(a -> a.getIsExpired().startsWith("n") 
-    			                  &&  a.getUser().getRole()==role)
-    	              .forEach(p -> {
+         logger.info("curent time is"+currentDate);
+    	 List<Annance> list= annanceRepository.findAll().stream()
+    			                        .filter(a -> a.getIsExpired().startsWith("n") &&  a.getUser().getRole()==Role.ADMIN)
+    			                        .collect(Collectors.toList());
+    	            list.stream().forEach(p -> {
     	            	  LocalDateTime creationDate=p.getCreateTime();
     	            	  logger.info("creation time is "+creationDate);
-    	            	  if(Utils.hasDateExpired(DAYS,creationDate,currentDate)) {
+    	            	  if(Utils.hasDateExpired(DAYS,creationDate,dateTime)) {
     	            		  p.setIsExpired("o");
     	            	  }
     	              })
@@ -72,22 +74,20 @@ public class AnnanceService implements IAnnanceService
     }
 
 	@Override
-	public List<Annance> findAllAnnanceByUserAndId(Role role, Long userId) {
-		 List<Annance> annances= annanceRepository.findAll();
-		       annances.stream().filter(a -> a.getUser().getId().compareTo(userId)==0
+	public List<Annance> findAllAnnanceByUserAndId( Long userId) {
+		    List<Annance> annances= annanceRepository.findAnnanceByUserId(userId).stream()
+		                    .filter(a -> a.getUser().getId().compareTo(userId)==0
 		    		                         && a.getIsExpired().startsWith("n") 
-		       			                     &&  a.getUser().getRole()==role)
-		                    .forEach(p -> {
+		       			                     &&  a.getUser().getRole()==Role.USER)
+		                    .collect(Collectors.toList());
+		                    annances.stream().forEach(p -> {
 		    	            	  LocalDateTime creationDate=p.getCreateTime();
 		    	            	  logger.info("creation time is "+creationDate);
 		    	            	  if(Utils.hasDateExpired(DAYS,creationDate,currentDate)) {
 		    	            		  p.setIsExpired("o");
 		    	            	  }
 		    	              })
-		    	              ;
-		                        
+		    	              ;                    
 		return annances;
 	}
-    
-    
 }

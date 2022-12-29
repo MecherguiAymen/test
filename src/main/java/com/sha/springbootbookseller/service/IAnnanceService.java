@@ -16,6 +16,6 @@ public interface IAnnanceService
 
     void deleteBook(Long id);
 
-    List<Annance> findAllAnnanceByAdmin(Role role);
-     List<Annance> findAllAnnanceByUserAndId(Role role,Long userId);
+    List<Annance> findAllAnnanceByAdmin();
+     List<Annance> findAllAnnanceByUserAndId(Long userId);
 }

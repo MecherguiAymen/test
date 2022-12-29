@@ -13,4 +13,5 @@ import com.sha.springbootbookseller.model.Annance;
  */
 public interface IAnnanceRepository extends JpaRepository<Annance, Long>
 {
+	public List<Annance> findAnnanceByUserId(Long userId);
 }

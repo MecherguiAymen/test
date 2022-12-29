@@ -46,7 +46,7 @@ public class Annance
     
     @ManyToOne()
     @JoinColumn(
-			name = "User_id",
+			name = "UserId",
 			referencedColumnName = "id")
     private User user;
     
