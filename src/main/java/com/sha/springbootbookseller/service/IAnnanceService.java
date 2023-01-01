@@ -1,5 +1,6 @@
 package com.sha.springbootbookseller.service;
 
+import com.sha.springbootbookseller.exceptions.AnnanceNotFoundException;
 import com.sha.springbootbookseller.model.Annance;
 import com.sha.springbootbookseller.model.Role;
 
@@ -17,7 +18,7 @@ public interface IAnnanceService
     void deleteAnnance(Long id);
 
     List<Annance> findAllAnnanceByAdmin();
-     List<Annance> findAllAnnanceByUserAndId(Long userId);
+     List<Annance> findAllAnnanceByUserAndId(Long userId) throws AnnanceNotFoundException;
 
 	Object updateAnnanceExpirationStatus(Long annaceId, String isExpired);
 }

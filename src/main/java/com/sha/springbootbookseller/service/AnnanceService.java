@@ -1,5 +1,6 @@
 package com.sha.springbootbookseller.service;
 
+import com.sha.springbootbookseller.exceptions.AnnanceNotFoundException;
 import com.sha.springbootbookseller.model.Annance;
 import com.sha.springbootbookseller.model.Role;
 import com.sha.springbootbookseller.repository.IAnnanceRepository;
@@ -47,7 +48,7 @@ public class AnnanceService implements IAnnanceService
     @Override
     public void deleteAnnance(Long id)
     {
-    	annanceRepository.deleteById(id);
+    	 annanceRepository.deleteById(id);
     }
 
     @Override
@@ -74,8 +75,10 @@ public class AnnanceService implements IAnnanceService
     }
 
 	@Override
-	public List<Annance> findAllAnnanceByUserAndId( Long userId) {
-		    List<Annance> annances= annanceRepository.findAnnanceByUserId(userId).stream()
+	public List<Annance> findAllAnnanceByUserAndId( Long userId) throws AnnanceNotFoundException {
+		    List<Annance> annances= annanceRepository.findAnnanceByUserId(userId);
+		    if(!annances.isEmpty()) {
+		         annances.stream()
 		                    .filter(a -> a.getUser().getId().compareTo(userId)==0
 		    		                         && a.getIsExpired().startsWith("n") 
 		       			                     &&  a.getUser().getRole()==Role.USER)
@@ -89,6 +92,9 @@ public class AnnanceService implements IAnnanceService
 		    	              })
 		    	              ;                    
 		return annances;
+		    }
+		    else 
+		 throw new AnnanceNotFoundException("annance not found with id "+userId);
 	}
 
 	@Override

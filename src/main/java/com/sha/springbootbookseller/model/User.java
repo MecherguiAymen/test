@@ -1,9 +1,11 @@
 package com.sha.springbootbookseller.model;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
-
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -22,12 +24,18 @@ public class User
     private Long id;
 
     @Column(name = "username", unique = true, nullable = false, length = 100)
+    @NotNull(message = "username shouldn't be null")
+    @NotBlank
     private String username;
 
     @Column(name = "password", nullable = false, length = 100)
+    @NotNull(message = "password shouldn't be null")
+    @NotBlank
     private String password;
 
     @Column(name = "name", nullable = false, length = 100)
+    @NotNull(message = "name shouldn't be null")
+    @NotBlank
     private String name;
 
     @Column(name = "create_time", nullable = false)

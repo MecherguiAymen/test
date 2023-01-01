@@ -8,6 +8,7 @@ import com.sha.springbootbookseller.service.IUserService;
 import java.awt.Image;
 import java.io.IOException;
 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class AuthenticationController
     private IUserService userService;
 
     @PostMapping("sign-up") //api/authentication/sign-up
-    public ResponseEntity<?> signUp(@RequestParam(required = false,value = "file") MultipartFile file,@RequestParam String user) throws IOException
+    public ResponseEntity<?> signUp(@RequestParam(required = false,value = "file") MultipartFile file,@Valid @RequestParam String user) throws IOException
     {
     	ObjectMapper mapper=new ObjectMapper();
     	User user2=mapper.readValue(user, User.class);

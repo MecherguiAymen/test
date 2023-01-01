@@ -1,4 +1,4 @@
-package com.sha.springbootbookseller.exception;
+package com.sha.springbootbookseller.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
