@@ -36,7 +36,7 @@ public class AnnanceService implements IAnnanceService
     }
 
     @Override
-    public Annance saveBook(Annance book)
+    public Annance saveAnnance(Annance book)
     {
     	
         book.setCreateTime(LocalDateTime.now());
@@ -45,7 +45,7 @@ public class AnnanceService implements IAnnanceService
     }
 
     @Override
-    public void deleteBook(Long id)
+    public void deleteAnnance(Long id)
     {
     	annanceRepository.deleteById(id);
     }
@@ -89,5 +89,12 @@ public class AnnanceService implements IAnnanceService
 		    	              })
 		    	              ;                    
 		return annances;
+	}
+
+	@Override
+	public Object updateAnnanceExpirationStatus(Long annaceId, String isExpired) {
+		int annance=annanceRepository.updateAnnanceIsExpiredById(annaceId,isExpired);
+		logger.info("hello world");
+		return annance;
 	}
 }

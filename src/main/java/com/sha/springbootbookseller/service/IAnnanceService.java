@@ -12,10 +12,12 @@ import java.util.List;
  */
 public interface IAnnanceService
 {
-    Annance saveBook(Annance book);
+    Annance saveAnnance(Annance book);
 
-    void deleteBook(Long id);
+    void deleteAnnance(Long id);
 
     List<Annance> findAllAnnanceByAdmin();
      List<Annance> findAllAnnanceByUserAndId(Long userId);
+
+	Object updateAnnanceExpirationStatus(Long annaceId, String isExpired);
 }

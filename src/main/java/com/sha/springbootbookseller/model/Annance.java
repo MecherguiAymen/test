@@ -37,7 +37,7 @@ public class Annance
     @Enumerated(EnumType.STRING)
 	private Category category;
     
-    @Column(name = "isExpired", nullable = false)
+    @Column(name = "isexpired", nullable = false)
     private String isExpired;
     
     @Column(name = "create_time", nullable = false)
