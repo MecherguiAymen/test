@@ -18,7 +18,9 @@ public interface IAnnanceService
     void deleteAnnance(Long id);
 
     List<Annance> findAllAnnanceByAdmin();
-     List<Annance> findAllAnnanceByUserAndId(Long userId) throws AnnanceNotFoundException;
+    List<Annance> findAllAnnanceByUserAndId(Long userId) throws AnnanceNotFoundException;
 
 	Object updateAnnanceExpirationStatus(Long annaceId, String isExpired);
+
+	 List<Annance> getAllAnnanceExposeForUser(Long userId) throws AnnanceNotFoundException;
 }

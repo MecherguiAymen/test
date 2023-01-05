@@ -76,9 +76,9 @@ public class AnnanceService implements IAnnanceService
 
 	@Override
 	public List<Annance> findAllAnnanceByUserAndId( Long userId) throws AnnanceNotFoundException {
-		    List<Annance> annances= annanceRepository.findAnnanceByUserId(userId);
+		List<Annance> annances= annanceRepository.findAnnanceByUserId(userId);
 		    if(!annances.isEmpty()) {
-		         annances.stream()
+		    	List<Annance> annanc = annances.stream()
 		                    .filter(a -> a.getUser().getId().compareTo(userId)==0
 		    		                         && a.getIsExpired().startsWith("n") 
 		       			                     &&  a.getUser().getRole()==Role.USER)
@@ -91,7 +91,7 @@ public class AnnanceService implements IAnnanceService
 		    	            	  }
 		    	              })
 		    	              ;                    
-		return annances;
+		return annanc;
 		    }
 		    else 
 		 throw new AnnanceNotFoundException("annance not found with id "+userId);
@@ -102,5 +102,21 @@ public class AnnanceService implements IAnnanceService
 		int annance=annanceRepository.updateAnnanceIsExpiredById(annaceId,isExpired);
 		logger.info("hello world");
 		return annance;
+	}
+
+	@Override
+	public List<Annance> getAllAnnanceExposeForUser(Long userId) throws AnnanceNotFoundException {
+		
+		List<Annance> annances=annanceRepository.findAll();
+		  if(!annances.isEmpty()) {
+			 List<Annance> aa= annances.stream().filter(a -> a.getUser().getId()!=userId)
+			                   .collect(Collectors.toList());
+			  aa.stream().forEach(a -> a.setUser(null)           
+			                            );
+				return aa;
+		  }else {
+			throw new AnnanceNotFoundException("no annance found");
+		}
+	
 	}
 }

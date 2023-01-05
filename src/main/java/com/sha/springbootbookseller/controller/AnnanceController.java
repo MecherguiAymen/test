@@ -67,5 +67,10 @@ public class AnnanceController
     {    
            return new ResponseEntity<>(annanceService.updateAnnanceExpirationStatus(annanceId,isExpired),HttpStatus.OK);
     }
+    
+    @GetMapping("exposefor/user/{userId}")
+    public ResponseEntity<?> getAllAnnanceExposeForUser(@PathVariable Long userId) throws AnnanceNotFoundException{
+    	return new ResponseEntity<>(annanceService.getAllAnnanceExposeForUser(userId),HttpStatus.OK);
+    }
 
 }
